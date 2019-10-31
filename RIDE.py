@@ -1,6 +1,6 @@
 """
 PROG: ride
-ID: email.h1
+ID: /////////
 LANG: PYTHON2
 TASK: test
 """
