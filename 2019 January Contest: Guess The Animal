@@ -1,0 +1,39 @@
+fileIn = open("guess.in","r")
+fileOut = open("guess.out","w")
+
+file = fileIn.read().splitlines()
+
+numAnimals = int(file[0])
+file.pop(0)
+
+animals = []
+abilities = []
+checkAbilities = []
+numYes = []
+
+for i in range(len(file)):
+    line = file[i]
+    animals.append(line.split()[0])
+    abilities.append([])
+    for x in range(int(line.split()[1])):
+        abilities[i].append(line.split()[x+2])
+        checkAbilities.append(line.split()[x+2])
+
+
+        
+for a in range(numAnimals):
+    currentAnimal = animals[a]
+    for b in range(numAnimals):
+        counter = 0
+        checkingAnimal = animals[b]
+        if a!=b:
+            for c in range(len(abilities[a])):
+                currentCondition = abilities[a][c]
+                if currentCondition in abilities[b]:
+                        counter+=1
+        counter+=1
+        numYes.append(counter)
+
+
+fileOut.write(str(max(numYes)))
+fileOut.close()
