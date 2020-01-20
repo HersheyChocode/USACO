@@ -1,0 +1,41 @@
+fileIn = open ("shell.in","r")
+fileOut = open ("shell.out","w")
+
+file = fileIn.read().splitlines()
+
+numGuesses = int(file[0])
+file.pop(0)
+
+sequence = ["win","",""]
+points = [0,0,0]
+for line in file:
+    change1 = int(line.split()[0])
+    change2 = int(line.split()[1])
+    guess = int(line.split()[2])
+    temp = sequence[change1-1]
+    sequence[change1-1]=sequence[change2-1]
+    sequence[change2-1]=temp
+    if sequence[guess-1]=="win":
+        points[0]+=1
+sequence = ["","win",""]
+for line in file:
+    change1 = int(line.split()[0])
+    change2 = int(line.split()[1])
+    guess = int(line.split()[2])
+    temp = sequence[change1-1]
+    sequence[change1-1]=sequence[change2-1]
+    sequence[change2-1]=temp
+    if sequence[guess-1]=="win":
+        points[1]+=1
+sequence = ["","","win"]
+for line in file:
+    change1 = int(line.split()[0])
+    change2 = int(line.split()[1])
+    guess = int(line.split()[2])
+    temp = sequence[change1-1]
+    sequence[change1-1]=sequence[change2-1]
+    sequence[change2-1]=temp
+    if sequence[guess-1]=="win":
+        points[2]+=1
+fileOut.write(str(max(points)))
+fileOut.close()
