@@ -1,0 +1,37 @@
+fileIn = open("skidesign.in","r")
+fileOut = open("skidesign.out","w")
+
+
+file = fileIn.read().splitlines()
+
+n = int(file[0])
+file.pop(0)
+
+
+heights = [int(x) for x in file]
+
+
+s = min(heights)
+l = max(heights)
+diff = l-s
+total=0
+
+if diff<=17:
+    fileOut.write("0")
+elif diff==1:
+    fileOut.write("1")
+else:
+    heights.sort()
+    price = []
+    for num in range(heights[0],max(heights)-16):
+        val = num + 17
+        total = 0
+        for item in heights:
+            if item<num:
+                total+=(num-item)*(num-item)
+            elif item>val:
+                total+=(item-val)*(item-val)
+        price.append(total)
+        
+    fileOut.write(str(min(price)))
+fileOut.close()
