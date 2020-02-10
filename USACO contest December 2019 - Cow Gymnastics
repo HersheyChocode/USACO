@@ -1,0 +1,28 @@
+fileIn = open("gymnastics.in","r")
+fileOut = open("gymnastics.out","w")
+
+file = fileIn.read().splitlines()
+
+numPractices = int(file[0].split()[0])
+numCows = int(file[0].split()[1])
+file.pop(0)
+
+sessions = []
+consistencies = 0
+
+
+for x in range(numPractices):
+    sessions.append([int(y) for y in file[x].split()])
+
+for x in range(numCows):
+    for y in range(numCows):
+        if y!=x:
+            rank = 0
+            for z in sessions:
+                if z.index(x+1)>z.index(y+1):
+                    rank+=1
+            if rank==numPractices: consistencies+=1
+            
+
+fileOut.write(str(consistencies))
+fileOut.close()
