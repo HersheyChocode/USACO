@@ -1,0 +1,22 @@
+fileIn = open("whereami.in","r")
+fileOut = open("whereami.out","w")
+
+file = fileIn.read().splitlines()
+file.pop(0)
+
+string = file[0]
+
+
+for x in range(1,len(string)):
+    make = 0
+    possibilities = []
+    for y in range(0, len(string)-1):
+        currentString = string[y:y+x]
+        possibilities.append(currentString)
+        if possibilities.count(currentString)>1:
+            make = 1
+            break
+    if make==0:
+        fileOut.write(str(x))
+        break
+fileOut.close()
