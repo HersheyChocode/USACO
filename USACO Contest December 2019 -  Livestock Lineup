@@ -1,0 +1,50 @@
+fileIn = open("lineup.in","r")
+fileOut = open("lineup.out","w")
+
+file = fileIn.read().splitlines()
+num = int(file[0])
+file.pop(0)
+
+requirements = []
+for x in range(num):
+    requirements.append([])
+    requirements[x].append(file[x].split()[0])
+    requirements[x].append(file[x].split()[-1])
+
+cows = ["Bessie", "Buttercup", "Belinda", "Beatrice", "Bella", "Blue", "Betsy", "Sue"]
+order = []
+total = []
+for a in range(8):
+    for b in range(8):
+        if a!=b:
+            for c in range(8):
+                if b!=c and c!=a:                   
+                    for d in range(8):
+                        if d!=c and d!=b and d!=a:
+                            for e in range(8):
+                                if e!=a and e!=b and e!=c and e!=d:
+                                    for f in range(8):
+                                        if f!=a and f!=b and f!=c and f!=d and f!=e:
+                                            for g in range(8):
+                                                if g!=a and g!=b and g!=c and g!=d and g!=e and g!=f:
+                                                    for h in range(8):
+                                                        if h!=a and h!=b and h!=c and h!=d and h!=e and h!=f and h!=g:
+                                                            order.append(cows[a])
+                                                            order.append(cows[b])
+                                                            order.append(cows[c])
+                                                            order.append(cows[d])
+                                                            order.append(cows[e])
+                                                            order.append(cows[f])
+                                                            order.append(cows[g])
+                                                            order.append(cows[h])
+                                                            total.append(" ".join(order))
+                                                            order=[]
+possible = "z z z z z z z z"
+for x in total:
+    onum = 0
+    for y in requirements:
+        if abs(x.split().index(y[0])-x.split().index(y[1]))==1:
+            onum+=1
+    if onum==num and x<possible:
+        possible=x
+fileOut.write("\n".join(possible.split()))
