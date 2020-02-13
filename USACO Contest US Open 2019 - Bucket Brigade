@@ -1,0 +1,41 @@
+fileIn = open("buckets.in","r")
+fileOut = open("buckets.out","w")
+
+file = fileIn.read().splitlines()
+
+
+arr = []
+for x in range(10):
+    arr.append([])
+    for char in file[x]: arr[x].append(char)
+
+for line in range(10):
+    if "B" in arr[line]:
+        height1 = line
+        width1 = arr[line].index("B")
+    if "L" in arr[line]:
+        height2 = line
+        width2 = arr[line].index("L")
+    if "R" in arr[line]:
+        rockHeight = line
+        rockWidth = arr[line].index("R")
+
+width = abs(width1-width2)
+height = abs(height1-height2)
+
+if (height1==rockHeight and rockHeight==height2):
+    if (abs(width1-rockWidth)+abs(width2-rockWidth)==width):
+        fileOut.write(str(width+height+1))
+        print("hhjdyjdhud",width+height+1)
+    else:
+        fileOut.write(str(width+height-1))
+elif (width1==rockWidth and rockWidth==width2):
+    if (abs(height1-rockHeight)+abs(height2-rockHeight)==height):
+        print("FHRI HGAHD ")
+        fileOut.write(str(width+height+1))
+    else:
+        fileOut.write(str(width+height-1))
+else:
+    fileOut.write(str(width+height-1))
+
+fileOut.close()
