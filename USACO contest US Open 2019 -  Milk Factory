@@ -1,0 +1,43 @@
+fileIn = open("factory.in","r")
+fileOut = open("factory.out","w")
+
+file = fileIn.read().splitlines()
+
+num = int(file[0])
+file.pop(0)
+
+arr = {}
+write = ""
+for x in range(num-1):
+    arr[int(file[x].split()[0])]=int(file[x].split()[1])
+
+chains = []
+for x in range(1,num+1):
+    end = False
+    currentNum = x
+    chain = []
+    if currentNum in arr: chain = [currentNum]
+    while end==False:
+        if currentNum in arr:
+            chain.append(arr[currentNum])
+            currentNum = arr[currentNum]
+        else:
+            end = True
+    if len(chain)>1: chains.append(chain)
+
+
+for x in range(1,num+1):
+    chain = []
+    for y in chains:
+        if x in y and y.index(x)>0:
+            for z in y[:y.index(x)]:
+                if z not in chain: chain.append(z)
+    if len(chain)==num-1:
+        write = str(x)
+
+if write=="":
+    fileOut.write("-1")
+else:
+    fileOut.write(write)
+
+fileOut.close()
