@@ -1,0 +1,61 @@
+tn = input()
+
+t = int(tn.split()[0])
+n = int(tn.split()[1])
+
+landmarks =[]
+for x in range(n):
+    landmarks.append(int(input()))
+landmarks.sort()
+
+
+closest = 100001
+for x in range(0,len(landmarks)):
+    if abs(landmarks[x])<abs(closest):
+        closest = landmarks[x]  
+
+time = 0
+current = 0
+numLandmarks = 0
+while time<=t:
+    time += abs(current-closest)
+    print(time, current, closest)
+    if(time<=t): numLandmarks+=1
+
+    if current in landmarks: landmarks.remove(current)
+    current = closest
+
+    if landmarks.index(current)==0:
+        if len(landmarks)>1:
+            closest = landmarks[1]
+        else:
+            if time+abs(current)<=t:
+                time+=abs(current)
+                numLandmarks+=1
+                break
+            else:
+                break
+
+    elif landmarks[-1]==current:
+        if len(landmarks)>1:
+            closest = landmarks[-2]
+        else:
+            if time+abs(current)<=t:
+                numLandmarks+=1
+                time+=abs(current)
+                break
+            else:
+                break
+    else:
+        index = landmarks.index(current)
+        if abs(current-landmarks[index-1])==abs(current-landmarks[index+1]):
+            if abs(landmarks[index-1])<abs(landmarks[index+1]):
+                closest = landmarks[index-1]
+            else:
+                closest = landmarks[index+1]
+        elif min(abs(current-landmarks[index-1]),abs(current-landmarks[index+1]))==abs(current-landmarks[index-1]):
+            closest = landmarks[index-1]
+        elif min(abs(current-landmarks[index-1]),abs(current-landmarks[index+1]))==abs(current-landmarks[index+1]):
+            closest = landmarks[index+1]
+            
+print(numLandmarks)       
